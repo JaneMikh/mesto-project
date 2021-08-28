@@ -1,0 +1,19 @@
+.user-profile__info {
+  max-width: 400px;
+  margin-left: 24.3px;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows: repeat(2, auto);
+  row-gap: 16px;
+  column-gap: 18px;
+}
+
+@media all and (max-width: 960px) {
+  .user-profile__info {
+    width: 88.1%;
+    grid-template-columns: 83.3% 13.1%;
+    row-gap: 14px;
+    column-gap: 10px;
+    margin: 0 auto 36px;
+  }
+}

@@ -1,6 +1,7 @@
 .header {
   max-width: 880px;
   padding: 45px 0 41px;
+  box-sizing: border-box;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -17,11 +18,10 @@
   width: 100%;
 }
 
-
 @media all and (max-width: 960px) { /*60em*/
   .header {
-    max-width: 32.4%;
-    padding: 28px 0 31.6px;
+    width: 100%;
+    padding: 28px 0 31.6px 27px;
   }
 
   .header::after {

@@ -1,0 +1,21 @@
+.button__data-edit {
+  background-image: url('../../../images/edit_button.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #ffffff;
+  align-self: end;
+  transition: opacity .3s ease-in;
+}
+
+.button__data-edit:hover {
+  opacity: .6;
+}
+
+@media all and (max-width: 960px) {
+  .button__data-edit {
+    width: 18px;
+    height: 18px;
+  }
+}

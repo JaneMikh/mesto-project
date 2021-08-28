@@ -1,0 +1,23 @@
+.button__cards-add {
+  background-image: url('../../../images/cards_add.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 150px;
+  height: 50px;
+  border: 2px solid #ffffff;
+  box-sizing: border-box;
+  border-radius: 2px;
+  margin-left: auto;
+  transition: opacity 0.3s ease-in;
+}
+
+.button__cards-add:hover {   /*сделать миксовый клас на наведение*/
+  opacity: 0.6;
+}
+
+@media all and (max-width: 960px) {
+  .button__cards-add {
+    width: 282px;
+    margin: 0 auto;
+  }
+}
