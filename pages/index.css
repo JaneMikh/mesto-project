@@ -9,7 +9,7 @@
 @import url(../blocks/content/content.css);
 /*user-profile*/
 @import url(../blocks/user-profile/user-profile.css);
-@import url(../blocks/user-profile/____photo/user-profile__photo.css);
+@import url(../blocks/user-profile/__photo/user-profile__photo.css);
 @import url(../blocks/user-profile/__info/user-profile__info.css);
 @import url(../blocks/user-profile/__name/user-profile__name.css);
 @import url(../blocks/user-profile/__profession/user-profile__profession.css);
@@ -17,4 +17,13 @@
 @import url(../blocks/button/button.css);
 @import url(../blocks/button/__data-edit/button__data-edit.css);
 @import url(../blocks/button/__cards-add/button__cards-add.css);
-
+@import url(../blocks/button/__like-icon/button__like-icon.css);
+@import url(../blocks/button/__like-icon/_active/button__like-icon_active.css);
+/*places*/
+@import url(../blocks/places/places.css);
+/*card*/
+@import url(../blocks/card/card.css);
+@import url(../blocks/card/__item/card__item.css);
+@import url(../blocks/card/__image/card__image.css);
+@import url(../blocks/card/__description/card__description.css);
+@import url(../blocks/card/__name/card__name.css);

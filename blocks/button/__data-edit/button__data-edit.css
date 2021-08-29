@@ -5,8 +5,8 @@
   width: 24px;
   height: 24px;
   border: 1px solid #ffffff;
-  align-self: end;
   transition: opacity .3s ease-in;
+  align-self: center;
 }
 
 .button__data-edit:hover {
