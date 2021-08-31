@@ -11,7 +11,7 @@
   transition: opacity 0.3s ease-in;
 }
 
-.button__cards-add:hover {   /*сделать миксовый клас на наведение*/
+.button__cards-add:hover {
   opacity: 0.6;
 }
 
