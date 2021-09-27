@@ -1,21 +1,34 @@
-const popupElement = document.querySelector('.popup_type_edit-profile');
-const popupEditButton = document.querySelector('#edit-button');
-const popupCloseButton = popupElement.querySelector('.popup__button-close');
+//Переменные
+const popup = document.querySelectorAll('.popup'); //Добавили переменную, универсальную для ВСЕХ трех попапов
+const popupEditProfile = document.querySelector('.popup_type_edit-profile');
+const buttonEditForm = document.querySelector('.user-profile__button-edit');
+const buttonClosePopupEditForm = popupEditProfile.querySelector('.popup__button-close');
+const popupProfileForm = document.querySelector('.form_type_profile');
+const nameInput = popupEditProfile.querySelector('.form__input_type_name');
+const jobInput = popupEditProfile.querySelector('.form__input_type_description');
 
-//Открытие попапа
-popupEditButton.addEventListener('click', function() {
-  popupElement.classList.add('popup_opened');
+// Универсальная функция для открытия всех трех попапов
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
+}
+
+// Универсальная функция для закрытия всех трех попапов
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
+}
+
+// Обработчик для открытия попапа для редактирования профиля
+buttonEditForm.addEventListener('click', function() {
+  openPopup(popupEditProfile);
 });
 
-//Закрытие попапа
-popupCloseButton.addEventListener('click', function() {
-  popupElement.classList.remove('popup_opened');
+//Обработчик для закрытия попапа для редактирования профиля
+buttonClosePopupEditForm.addEventListener('click', function() {
+  closePopup(popupEditProfile);
 });
 
 //Редактирование профиля
-const formElement = document.querySelector('.form_type_profile');
-const nameInput = popupElement.querySelector('.form__input_type_name');
-const jobInput = popupElement.querySelector('.form__input_type_description');
+
 
 function formSubmitHandler (evt) {
   evt.preventDefault();
@@ -23,9 +36,11 @@ function formSubmitHandler (evt) {
   jobInput.textContent = jobInput.value;
   document.querySelector('.user-profile__name').textContent = nameInput.value;
   document.querySelector('.user-profile__profession').textContent = jobInput.value;
-  popupElement.classList.remove('popup_opened');
+  popupElement.classList.remove('popup_opened'); //тут
 }
 formElement.addEventListener('submit', formSubmitHandler);
+
+ /*
 
 // Массив, состоящий из карточек, задаваемых по умолчанию
 const initialCards = [
@@ -67,6 +82,7 @@ initialCards.forEach(function (item) {
   cardImage.alt = item.name;
   cardLink.textContent = item.name;
   cardList.append(cardElement);
+
   // Добавление Like
   const cardLike = cardElement.querySelector('.card__button-like');
   function addLikeButton() {
@@ -162,3 +178,4 @@ function addPlaceCard (evt) {
   cardList.prepend(cardElement);
 }
 formAddCard.addEventListener('submit', addPlaceCard);
+*/
