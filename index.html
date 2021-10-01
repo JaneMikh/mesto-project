@@ -40,7 +40,7 @@
             <input type="text" id="name" name="profile-name" placeholder="Жак-Ив Кусто" class="form__input form__input_type_name" required>
           </label>
           <label for="about-yourself" class="form__label">
-            <input type="text" id="about-yourself" name="about-yourself" placeholder="Исследователь океана" class="form__input form__input_type_description" required>
+            <input type="text" id="about-yourself" name="about-yourself" placeholder="Исследователь океана" class="form__input form__input_type_description">
           </label>
           <button type="submit" name="submit" class="button form__button-submit">Сохранить</button>
         </form>
@@ -52,10 +52,10 @@
           <h2 class="popup__title">Новое место</h2>
           <form name="edit-profile" class="form form_type_add-card">
             <label for="card-name" class="form__label">
-              <input type="text" id="card-name" name="profile-name" placeholder="Название" class="form__input form__input_type_card-name">
+              <input type="text" id="card-name" name="profile-name" placeholder="Название" class="form__input form__input_type_card-name" required>
             </label>
             <label for="card-link" class="form__label">
-              <input type="url" id="card-link" name="about-yourself" placeholder="Ссылка на картику" class="form__input form__input_type_link">
+              <input type="url" id="card-link" name="about-yourself" placeholder="Ссылка на картику" class="form__input form__input_type_link" required>
             </label>
             <button type="submit" name="submit" class="button form__button-submit">Создать</button>
           </form>
@@ -78,7 +78,7 @@
           <button type="button" aria-label="Нравится" class="button card__button-like"></button>
         </div>
       </li>
-   </template>
+    </template>
     <script src="./scripts/script.js"></script>
   </body>
 </html>

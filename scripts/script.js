@@ -25,88 +25,6 @@ const popupImageConteiner = document.querySelector('.popup_type_image');
 const popupImageItem = popupImageConteiner.querySelector('.popup__image');
 const popuImageName = popupImageConteiner.querySelector('.popup__image-name');
 const buttonClosePopupImage = popupImageConteiner.querySelector('.popup__button-close_type_image');
-
-// Универсальная функция для открытия всех трех попапов
-function openPopup(popup) {
-  popup.classList.add('popup_opened');
-}
-
-// Универсальная функция для закрытия всех трех попапов
-function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-}
-
-// Слушатель для открытия попапа редактирования профиля
-buttonEditForm.addEventListener('click', () => {
-  nameInput.textContent = nameInput.value;
-  jobInput.textContent = jobInput.value;
-  openPopup(popupEditProfile);
-});
-
-//Слушатель для закрытия попапа редактирования профиля
-buttonClosePopupEditForm.addEventListener('click', () => {
-  closePopup(popupEditProfile);
-});
-
-//Обработчик отправки формы профиля
-function handleProfileFormSubmit (evt) {
-  evt.preventDefault(); // Предотвращение перезагрузки страницы после отправки формы
-  userProfileName.textContent = nameInput.value;
-  userProfileProfession.textContent = jobInput.value;
-  closePopup(popupEditProfile);
-}
-popupProfileForm.addEventListener('submit', handleProfileFormSubmit);
-
-//Cоздание новой карточки
-function createCard() {
-  const cardElement = cardTemplate.querySelector('.card').cloneNode(true); //Создаем клон template
-  const cardImage = cardElement.querySelector('.card__image');
-  const cardLink = cardElement.querySelector('.card__name');
-  const buttonLikeCard = cardElement.querySelector('.card__button-like');
-  const buttonDeleteCard = cardElement.querySelector('.card__button-delete');
-  cardImage.src = cardAboutInput.value; //Содержимое поля ввода передается в виде ссылки (атрибута) элемента image
-  cardImage.alt = cardNameInput.value;
-  cardLink.textContent = cardNameInput.value;
-
-  //Добавление/снятие отметки "Нравится"
-  function handleLikeIcon() {
-    buttonLikeCard.classList.toggle('card__button-like_active');
-  }
-    buttonLikeCard.addEventListener('click', handleLikeIcon);
-
-  //Удаление карточки
-  function deleteCard() {
-    buttonDeleteCard.closest('.card').remove();
-  }
-  buttonDeleteCard.addEventListener('click', deleteCard);
-
-  //Открытие попапа с фото
-  function handlePreviewPicture(cardImage, cardLink) {
-    popupImageConteiner.classList.add('popup_opened');
-    popupImageItem.src = cardImage.value; //не работает
-    popuImageName.textContent = cardLink.value; //не работает
-  }
-  cardImage.addEventListener('click', handlePreviewPicture); //не работает
-
-
-  return cardElement;
-}
-
-//Добавление карточки в разметку
-function addCard(cardElement) {
-  cardList.prepend(createCard(cardElement));
-}
-
-//Обработчик отправки формы для создания новой карточки
-function handleCardFormSubmit (evt) {
-  evt.preventDefault();
-  cardAboutInput.textContent = cardAboutInput.value;
-  cardNameInput.textContent = cardNameInput.value;
-  closePopup(popupAddCard);
-  addCard();
-};
-popupFormAddCard.addEventListener('submit', handleCardFormSubmit);
-
 //Массив, состоящий из карточек, задаваемых по умолчанию
 const initialCards = [
   {
@@ -134,24 +52,88 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+// Перевернутый массив
+const initialCardsReverse = initialCards.reverse();
 
-initialCards.forEach(function (item) {
-  cardAboutInput.value = item.link;
-  cardNameInput.value = item.name;
-  addCard();
+// Функция для открытия всех трех попапов
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
+}
+// Функция для закрытия всех трех попапов
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
+}
+//Cоздание новой карточки
+function createCard(name, link) {
+  const cardElement = cardTemplate.querySelector('.card').cloneNode(true); //Создаем клон template
+  const cardImage = cardElement.querySelector('.card__image');
+  const cardName = cardElement.querySelector('.card__name');
+  const buttonLikeCard = cardElement.querySelector('.card__button-like');
+  const buttonDeleteCard = cardElement.querySelector('.card__button-delete');
+  cardImage.src = link;
+  cardImage.alt = name;
+  cardName.textContent = name;
+  //Добавление/снятие отметки "Нравится"
+  function handleLikeIcon() {
+    buttonLikeCard.classList.toggle('card__button-like_active');
+  }
+  buttonLikeCard.addEventListener('click', handleLikeIcon);
+  //Удаление карточки
+  function handleDelIcon() {
+    buttonDeleteCard.closest('.card').remove();
+  }
+  buttonDeleteCard.addEventListener('click', handleDelIcon);
+  //Открытие попапа с фото
+  function handlePreviewPicture() {
+    openPopup(popupImageConteiner);
+    popupImageItem.src = link;
+    popuImageName.alt = name;
+    popuImageName.textContent = name;
+  }
+  cardImage.addEventListener('click', handlePreviewPicture);
+  return cardElement;
+}
+//Добавление карточки в разметку
+function addCard(userText, userLink) {
+  cardList.prepend(createCard(userText, userLink));
+}
+// Добавление карточек в разметку по умолчанию из массива
+initialCardsReverse.forEach(function (item) {
+  addCard(item.name, item.link);
 });
-
+//Обработчик отправки формы для создания новой карточки
+function handleCardFormSubmit (evt) {
+  cardAboutInput.textContent = cardAboutInput.value;
+  cardNameInput.textContent = cardNameInput.value;
+  closePopup(popupAddCard);
+  addCard(cardNameInput.value, cardAboutInput.value);
+  evt.preventDefault(); // Отключение события по умолчанию
+  evt.target.reset(); // Очистка полей формы
+};
+popupFormAddCard.addEventListener('submit', handleCardFormSubmit);
+// Открытие попапа для редактирования профиля пользователя
+buttonEditForm.addEventListener('click', () => {
+  openPopup(popupEditProfile);
+});
+// Закрытие попапа для редактирования профиля пользователя
+buttonClosePopupEditForm.addEventListener('click', () => {
+  closePopup(popupEditProfile);
+});
+//Обработчик отправки формы профиля пользователя
+popupProfileForm.addEventListener('submit', evt => {
+  userProfileName.textContent = nameInput.value;
+  userProfileProfession.textContent = jobInput.value;
+  closePopup(popupEditProfile);
+  evt.preventDefault();
+});
 // Открытие попапа для добавления карточек
 buttonAddCard.addEventListener('click', () => {
   openPopup(popupAddCard);
 });
-
 //Закрытие попапа для добавления карточек
 buttonClosePopupAddCard.addEventListener('click', () => {
   closePopup(popupAddCard);
 });
-
-
 // Закрытие попапа с фото
 buttonClosePopupImage.addEventListener('click', () => {
   closePopup(popupImageConteiner);
