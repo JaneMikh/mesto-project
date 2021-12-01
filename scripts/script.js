@@ -1,11 +1,15 @@
 //Переменные
+
 //Попар для редактрования профиля
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const buttonEditForm = document.querySelector('.user-profile__button-edit');
 const buttonClosePopupEditForm = popupEditProfile.querySelector('.popup__button-close_type_profile');
+
 const popupProfileForm = document.querySelector('.form_type_profile');
-const nameInput = popupEditProfile.querySelector('.form__input_type_name');
-const jobInput = popupEditProfile.querySelector('.form__input_type_description');
+const nameInput = popupProfileForm.querySelector('#name');
+const jobInput = popupProfileForm.querySelector('#aboutyourself');
+
+//Данные пользователя на главной странице
 const userProfileName = document.querySelector('.user-profile__name');
 const userProfileProfession = document.querySelector('.user-profile__profession');
 
@@ -60,9 +64,11 @@ const initialCards = [
 // Перевернутый массив
 const initialCardsReverse = initialCards.reverse();
 
+
 // Функция для открытия всех трех попапов
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  enableValidation(config);
 }
 
 // Функция для закрытия всех трех попапов
@@ -130,11 +136,13 @@ buttonEditForm.addEventListener('click', () => {
   nameInput.value = userProfileName.textContent;
   jobInput.value = userProfileProfession.textContent;
   openPopup(popupEditProfile);
+
 });
 
 // Закрытие попапа для редактирования профиля пользователя
 buttonClosePopupEditForm.addEventListener('click', () => {
   closePopup(popupEditProfile);
+ // resetSpans();
 });
 
 //Обработчик отправки формы профиля пользователя
@@ -159,3 +167,7 @@ buttonClosePopupAddCard.addEventListener('click', () => {
 buttonClosePopupImage.addEventListener('click', () => {
   closePopup(popupImageContainer);
 });
+
+
+enableValidation(config);
+
