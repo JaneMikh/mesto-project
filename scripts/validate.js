@@ -1,10 +1,3 @@
-const config = {
-  formSelector: '.form',
-  inputSelector: '.form__input',
-  buttonSelector: '.form__button-submit',
-  inputErrorClass: 'form__input_type_error',
-};
-
 const hasInvalidInput = (inputList) => {
   return inputList.some((inputElement) => {
     return !inputElement.validity.valid;
@@ -28,9 +21,9 @@ const showInputError = (inputElement, formElement) => {
 
 const toggleButtonState = (submitButton, inputList) => {
   if(hasInvalidInput(inputList)) {
-    submitButton.classList.add('form__button-submit_inactive');
+    submitButton.classList.add(config.inactiveButtonClass);
   } else {
-    submitButton.classList.remove('form__button-submit_inactive');
+    submitButton.classList.remove(config.inactiveButtonClass);
   };
 };
 

@@ -1,5 +1,13 @@
 //Переменные
+const config = {
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  buttonSelector: '.form__button-submit',
+  inputErrorClass: 'form__input_type_error',
+  inactiveButtonClass: 'form__button-submit_inactive',
+};
 
+const popupList = document.querySelectorAll('.popup');
 //Попар для редактрования профиля
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const buttonEditForm = document.querySelector('.user-profile__button-edit');
@@ -65,7 +73,7 @@ const initialCards = [
 const initialCardsReverse = initialCards.reverse();
 
 
-// Функция для открытия всех трех попапов
+/*// Функция для открытия всех трех попапов
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   enableValidation(config);
@@ -75,7 +83,7 @@ function openPopup(popup) {
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
 }
-
+*/
 //Cоздание новой карточки
 function createCard(name, link) {
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
@@ -168,6 +176,42 @@ buttonClosePopupImage.addEventListener('click', () => {
   closePopup(popupImageContainer);
 });
 
+function handleEscClose(evt) {
+  if (evt.key === 'Escape') {
+    for (let i = 0; i < popupList.length; i++) {
+      popupList[i].classList.remove('popup_opened');
+    }
+  }
+};
 
-enableValidation(config);
+// Функция для открытия всех трех попапов
+function openPopup(popup) {
+  enableValidation(config);
+  popup.classList.add('popup_opened');
+  document.addEventListener('keydown', handleEscClose);
+  document.addEventListener('mousedown', handleMouseClose);
+}
 
+// Функция для закрытия всех трех попапов
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', handleEscClose);
+  document.removeEventListener('mousedown', handleMouseClose);
+}
+
+//Закрытие попапа кликом на оверлей
+function handleMouseClose(evt) {
+  if (evt.target.classList.contains('popup_opened')) {
+    for (let i = 0; i < popupList.length; i++) {
+      popupList[i].classList.remove('popup_opened');
+    }
+  }
+};
+
+enableValidation({
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  buttonSelector: '.form__button-submit',
+  inputErrorClass: 'form__input_type_error',
+  inactiveButtonClass: 'form__button-submit_inactive',
+});
