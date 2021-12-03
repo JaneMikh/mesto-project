@@ -13,6 +13,5 @@
 5. Валидация данных в формах;
 6. Сборка Webpack
 
-## Демо
 [Ссылка на проект](https://janemikh.github.io/mesto-project/)
 
