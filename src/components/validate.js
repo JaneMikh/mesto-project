@@ -1,6 +1,6 @@
 //Назначение: Валидация данных в форме
 import {config} from '../components/constants.js'
-export {enableValidation};
+export {enableValidation, removeAllErrors, enableSubmitButton, disableSubmitButton};
 
 //Функция для проверки валидации полей ввода, возвращающая false, если поле невалидно
 const hasInvalidInput = (inputList) => {
@@ -29,9 +29,11 @@ const showInputError = (inputElement, formElement) => {
 //Функция для изменения состояния кнопки submit
 const toggleButtonState = (submitButton, inputList) => {
   if(hasInvalidInput(inputList)) {
-    submitButton.disabled = false;
-  } else {
     submitButton.disabled = true;
+    submitButton.classList.add('form__button-submit_inactive');
+  } else {
+    submitButton.disabled = false;
+    submitButton.classList.remove('form__button-submit_inactive');
   }
 };
 
@@ -69,3 +71,36 @@ const enableValidation = () => {
     setEventListeners(formElement);
   });
 };
+
+
+ //Функция перебирает все инпуты и снимает сних спан и стилизацию инпутов
+ const removeAllErrors = () => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  formList.forEach((formElement) => {
+    const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
+    inputList.forEach((inputElement) => {
+      hideInputError(inputElement, formElement);
+    });
+  });
+};
+
+//Функция, которая при открытии попапа делает кнопку отправки формы неактивной
+const disableSubmitButton = () => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  formList.forEach((formElement) => {
+    const submitButton = formElement.querySelector(config.buttonSelector);
+    submitButton.classList.add(config.inactiveButtonClass);
+    submitButton.disabled = true;
+  });
+};
+
+ //Функция, исправляющая баг, когда при открытии попапа форма валидна, а кнопка неактивна
+ const enableSubmitButton = () => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  formList.forEach((formElement) => {
+    const submitButton = formElement.querySelector(config.buttonSelector);
+    submitButton.classList.remove(config.inactiveButtonClass);
+    submitButton.disabled = false;
+  });
+};
+

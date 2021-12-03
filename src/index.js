@@ -1,8 +1,10 @@
-//Импорт файла css для сборки (webpack) ДОБАВИТЬ
 
-import {enableValidation} from '../components/validate.js';
-import {config} from '../components/constants.js';
-import {openPopup, closePopup} from '../components/utils.js';
+//Импорт файла css для сборки (webpack)
+import './pages/index.css';
+
+import {enableValidation, removeAllErrors, enableSubmitButton, disableSubmitButton} from './components/validate.js';
+import {config} from './components/constants.js';
+import {openPopup, closePopup} from './components/utils.js';
 import {buttonAddCard,
   cardNameInput,
   cardAboutInput,
@@ -12,7 +14,7 @@ import {buttonAddCard,
   popupAddCard,
   popupImageContainer,
   addCard,
-} from '../components/card.js';
+} from './components/card.js';
 
 import {
   popupList,
@@ -24,7 +26,7 @@ import {
   jobInput,
   userProfileName,
   userProfileProfession
-} from '../components/modal.js';
+} from './components/modal.js';
 
 //Обработчик отправки формы для создания новой карточки
 function handleCardFormSubmit (evt) {
@@ -37,8 +39,10 @@ popupFormAddCard.addEventListener('submit', handleCardFormSubmit);
 
 // Открытие попапа для редактирования профиля пользователя
 buttonEditForm.addEventListener('click', () => {
+  removeAllErrors();
   nameInput.value = userProfileName.textContent;
   jobInput.value = userProfileProfession.textContent;
+  enableSubmitButton();
   openPopup(popupEditProfile);
 });
 
@@ -48,7 +52,7 @@ buttonClosePopupEditForm.addEventListener('click', () => {
 });
 
 //Обработчик отправки формы профиля пользователя
-popupProfileForm.addEventListener('submit', evt => {
+popupProfileForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
   userProfileName.textContent = nameInput.value;
   userProfileProfession.textContent = jobInput.value;
@@ -57,13 +61,17 @@ popupProfileForm.addEventListener('submit', evt => {
 
 // Открытие попапа для добавления карточек
 buttonAddCard.addEventListener('click', () => {
+  removeAllErrors();
+  disableSubmitButton();
   openPopup(popupAddCard);
 });
 
 //Закрытие попапа для добавления карточек
 buttonClosePopupAddCard.addEventListener('click', () => {
+  popupFormAddCard.reset();
   closePopup(popupAddCard);
 });
+
 
 // Закрытие попапа с фото
 buttonClosePopupImage.addEventListener('click', () => {
