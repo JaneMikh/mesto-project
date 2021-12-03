@@ -13,6 +13,5 @@
 6. Сборка Webpack
 
 ## Демо
-[Проект "Место"](https://janemikh.github.io/mesto-project/)
+[Ссылка на проект](https://janemikh.github.io/mesto-project/)
 
-![Alt-текст](./images/demo_image.jpg)
