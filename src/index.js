@@ -80,7 +80,7 @@ buttonClosePopupImage.addEventListener('click', () => {
 
 //Закрытие попапа нажатием на оверлей
 popupList.forEach(popupElement => {
-  document.addEventListener('mousedown', (evt) => {
+  popupElement.addEventListener('mousedown', (evt) => {
     if (evt.target.classList.contains('popup_opened')) {
       closePopup(popupElement);
     }
