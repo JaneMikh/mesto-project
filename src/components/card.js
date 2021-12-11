@@ -1,5 +1,6 @@
 //Назначение: содержит информацию по работе с карточками и попапами с изображением
 
+//import { NoEmitOnErrorsPlugin } from 'webpack';
 import {initialCardsReverse} from './constants.js';
 import {openPopup} from './utils.js';
 
@@ -12,7 +13,8 @@ export {
   popupFormAddCard,
   popupAddCard,
   popupImageContainer,
-  addCard};
+  addCard,
+  createCard};
 
 //Переменные
 // Попап для добавления карточек
@@ -36,7 +38,7 @@ const popuImageName = popupImageContainer.querySelector('.popup__image-name');
 const buttonClosePopupImage = popupImageContainer.querySelector('.popup__button-close_type_image');
 
 //Cоздание новой карточки
-function createCard(name, link) {
+function createCard(name, link, cardId) {
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
   const cardImage = cardElement.querySelector('.card__image');
   const cardName = cardElement.querySelector('.card__name');
@@ -45,6 +47,7 @@ function createCard(name, link) {
   cardImage.src = link;
   cardImage.alt = name;
   cardName.textContent = name;
+  cardElement.id = cardId;
 
   buttonLikeCard.addEventListener('click', handleLikeIcon);
   buttonDeleteCard.addEventListener('click', handleDeleteIcon);
@@ -72,11 +75,13 @@ function handlePreviewPicture(name, link) {
 }
 
 //Добавление карточки в разметку
-function addCard(userText, userLink) {
-  cardList.prepend(createCard(userText, userLink));
+function addCard(userText, userLink, cardId) {
+  cardList.prepend(createCard(userText, userLink, cardId));
 }
 
-// Добавление карточек в разметку по умолчанию из массива
+/*// Добавление карточек в разметку по умолчанию из массива
 initialCardsReverse.forEach(function (item) {
   addCard(item.name, item.link);
 });
+*/
+

@@ -1,7 +1,13 @@
-
 //Импорт файла css для сборки (webpack)
 import './pages/index.css';
 
+
+import {
+  getUserInfo,
+  setUserInfo,
+  getCardsInfo,
+  addServCard
+} from './components/api.js';
 import {enableValidation, removeAllErrors, enableSubmitButton, disableSubmitButton} from './components/validate.js';
 import {config} from './components/constants.js';
 import {openPopup, closePopup} from './components/utils.js';
@@ -14,6 +20,7 @@ import {buttonAddCard,
   popupAddCard,
   popupImageContainer,
   addCard,
+  createCard
 } from './components/card.js';
 
 import {
@@ -28,11 +35,37 @@ import {
   userProfileProfession
 } from './components/modal.js';
 
+getUserInfo()
+.then((data) => {
+  userProfileName.textContent = data.name;
+  userProfileProfession.textContent = data.about;
+})
+.catch((err) => {
+  console.log(err);
+})
+
+getCardsInfo()
+.then((data) => {
+  data.reverse().forEach(function(item) {
+    addCard(item.name, item.link, item._id);
+  })
+})
+.catch((err) => {
+  console.log(err);
+})
+
+
 //Обработчик отправки формы для создания новой карточки
 function handleCardFormSubmit (evt) {
-  evt.preventDefault(); // Отключение события по умолчанию
-  addCard(cardNameInput.value, cardAboutInput.value);
-  evt.target.reset(); // Очистка полей формы
+  evt.preventDefault();
+   // Отключение события по умолчанию
+  addServCard(cardNameInput.value, cardAboutInput.value)
+  .then((data) => {
+    addCard(data.name, data.link);
+  })
+  .catch((err) => {
+    console.log(err);
+  })
   closePopup(popupAddCard);
 };
 popupFormAddCard.addEventListener('submit', handleCardFormSubmit);
@@ -57,10 +90,13 @@ popupProfileForm.addEventListener('submit', (evt) => {
   userProfileName.textContent = nameInput.value;
   userProfileProfession.textContent = jobInput.value;
   closePopup(popupEditProfile);
+  setUserInfo(nameInput.value, jobInput.value)
 });
+
 
 // Открытие попапа для добавления карточек
 buttonAddCard.addEventListener('click', () => {
+  //reset(); // Очистка полей формы
   removeAllErrors();
   disableSubmitButton();
   openPopup(popupAddCard);
@@ -80,7 +116,7 @@ buttonClosePopupImage.addEventListener('click', () => {
 
 //Закрытие попапа нажатием на оверлей
 popupList.forEach(popupElement => {
-  document.addEventListener('mousedown', (evt) => {
+  popupElement.addEventListener('mousedown', (evt) => {
     if (evt.target.classList.contains('popup_opened')) {
       closePopup(popupElement);
     }
@@ -88,3 +124,36 @@ popupList.forEach(popupElement => {
 });
 
 enableValidation(config);
+
+
+
+
+
+
+/*
+
+//запрос на отображение количества лайков
+function addLike(cardId) {
+  return fetch(`${apiConfig.baseUrl}/cards/likes/${cardId}`, {
+    method: 'PUT',
+    headers: apiConfig.headers
+  })
+  .then(parseResponse)
+  .then((result) => {
+    console.log(result);
+  });
+}
+
+//запросна удаление карточек
+
+function deleteLike(cardId) {
+  return fetch(`${apiConfig.baseUrl}/cards/likes/${cardId}`, {
+    method: 'DELETE',
+    headers: apiConfig.headers
+  })
+  .then(parseResponse)
+  .then((result) => {
+    console.log(result);
+  });
+}
+*/
