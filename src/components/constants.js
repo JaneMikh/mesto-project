@@ -1,7 +1,7 @@
-export {initialCardsReverse, config};
+export {config};
 
 //Массив, состоящий из карточек, задаваемых по умолчанию
-const initialCards = [
+/*const initialCards = [
   {
     name: 'Архыз',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -30,7 +30,7 @@ const initialCards = [
 
 // Перевернутый массив
 const initialCardsReverse = initialCards.reverse();
-
+*/
 const config = {
   formSelector: '.form',
   inputSelector: '.form__input',
