@@ -1,5 +1,13 @@
 export {config};
 
+const config = {
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  buttonSelector: '.form__button-submit',
+  inputErrorClass: 'form__input_type_error',
+  inactiveButtonClass: 'form__button-submit_inactive',
+};
+
 //Массив, состоящий из карточек, задаваемых по умолчанию
 /*const initialCards = [
   {
@@ -31,10 +39,3 @@ export {config};
 // Перевернутый массив
 const initialCardsReverse = initialCards.reverse();
 */
-const config = {
-  formSelector: '.form',
-  inputSelector: '.form__input',
-  buttonSelector: '.form__button-submit',
-  inputErrorClass: 'form__input_type_error',
-  inactiveButtonClass: 'form__button-submit_inactive',
-};

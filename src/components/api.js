@@ -2,7 +2,12 @@ export {
   getUserInfo,
   setUserInfo,
   getCardsInfo,
-  addServCard
+  addUserCard,
+  deleteUserCard,
+  setUserLike,
+  deleteUserLike,
+  getUserCardsInfo,
+  setUserAvatar
 }
 
 const apiConfig = {
@@ -22,7 +27,6 @@ const getUserInfo = () => {
 .then(parseResponse)
 }
 
-
 //проверка работы сервера
 const parseResponse = (res) => {
   if (res.ok) {
@@ -30,7 +34,6 @@ const parseResponse = (res) => {
   }
   return Promise.reject(`Ошибка: ${res.status}`);
 }
-
 
 //Отправить запрос на изменение аватара на сервер
 const setUserAvatar = (userAvatar) => {
@@ -43,8 +46,6 @@ const setUserAvatar = (userAvatar) => {
   })
   .then(parseResponse)
 }
-setUserAvatar('https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg');
-
 
 //Отправить запрос на изменение имени и описания на сервер
 const setUserInfo = (userName, userAbout) => {
@@ -68,8 +69,13 @@ const getCardsInfo = () => {
 .then(parseResponse)
 }
 
+//Выполнение одновременной загрузки информации о пользователе и карточках
+const getUserCardsInfo = () => {
+  return Promise.all([getUserInfo(), getCardsInfo()]);
+}
+
 //Добавить новую карточку
-const addServCard = (cardName, cardLink) => {
+const addUserCard = (cardName, cardLink) => {
   return fetch(`${apiConfig.baseUrl}/cards`, {
     method: 'POST',
     headers: apiConfig.headers,
@@ -77,6 +83,39 @@ const addServCard = (cardName, cardLink) => {
       name: cardName,
       link: cardLink
     })
+  })
+  .then(parseResponse)
+}
+
+//Запрос на удаление карточки
+const deleteUserCard = (cardId) => {
+  return fetch(`${apiConfig.baseUrl}/cards/${cardId}`, {
+    method: 'DELETE',
+    headers: apiConfig.headers,
+    body: JSON.stringify({
+      _id: cardId
+    })
+  })
+  .then(parseResponse)
+  .catch((err) => {
+    console.log(err);
+  })
+}
+
+//Запрос на добавление лайка
+const setUserLike = (cardId) => {
+  return fetch(`${apiConfig.baseUrl}/cards/likes/${cardId}`, {
+    method: 'PUT',
+    headers: apiConfig.headers,
+  })
+  .then(parseResponse)
+}
+
+//Запрос на удаление лайка
+const deleteUserLike = (cardId) => {
+  return fetch(`${apiConfig.baseUrl}/cards/likes/${cardId}`, {
+    method: 'DELETE',
+    headers: apiConfig.headers,
   })
   .then(parseResponse)
 }
