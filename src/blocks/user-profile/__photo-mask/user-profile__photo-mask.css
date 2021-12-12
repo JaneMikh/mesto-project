@@ -1,0 +1,14 @@
+.user-profile__photo-mask {
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.user-profile__photo-mask:hover {
+  opacity: 1;
+}

@@ -8,7 +8,15 @@ export {
   nameInput,
   jobInput,
   userProfileName,
-  userProfileProfession
+  userProfileProfession,
+  userAvatar,
+  popupEditAvatar,
+  avatarForm,
+  avatarInput,
+  avatarPhoto,
+  buttonCloseAvatarForm,
+  buttonSubmitProfile,
+  buttonSubmitAvatar
 };
 
 //Переменные
@@ -21,7 +29,20 @@ const buttonClosePopupEditForm = popupEditProfile.querySelector('.popup__button-
 const popupProfileForm = document.querySelector('.form_type_profile');
 const nameInput = popupProfileForm.querySelector('#name');
 const jobInput = popupProfileForm.querySelector('#aboutyourself');
+const buttonSubmitProfile = popupProfileForm.querySelector('.form__button-submit_type_profile');
 
 //Данные пользователя на главной странице
 const userProfileName = document.querySelector('.user-profile__name');
 const userProfileProfession = document.querySelector('.user-profile__profession');
+
+//Аватар
+const userAvatar = document.querySelector('.user-profile__photo-mask');
+
+//Попап для изменения аватара пользователя
+const popupEditAvatar = document.querySelector('.popup_type_avatar');
+
+const avatarForm = popupEditAvatar.querySelector('.form_type_avatar');
+const avatarInput = popupEditAvatar.querySelector('#avatar');
+const avatarPhoto = document.querySelector('.user-profile__photo');
+const buttonCloseAvatarForm = popupEditAvatar.querySelector('.popup__button-close-avatar');
+const buttonSubmitAvatar = popupEditAvatar.querySelector('.form__button-submit_type_avatar');
