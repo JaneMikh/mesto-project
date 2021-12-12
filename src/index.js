@@ -1,13 +1,14 @@
 //Импорт файла css для сборки (webpack)
 import './pages/index.css';
 
-
 import {
-  getUserInfo,
   setUserInfo,
   getCardsInfo,
-  addServCard
+  addUserCard,
+  getUserCardsInfo,
+  setUserAvatar
 } from './components/api.js';
+
 import {enableValidation, removeAllErrors, enableSubmitButton, disableSubmitButton} from './components/validate.js';
 import {config} from './components/constants.js';
 import {openPopup, closePopup} from './components/utils.js';
@@ -19,8 +20,8 @@ import {buttonAddCard,
   popupFormAddCard,
   popupAddCard,
   popupImageContainer,
-  addCard,
-  createCard
+  buttonSubmitCard,
+  addCard
 } from './components/card.js';
 
 import {
@@ -32,41 +33,55 @@ import {
   nameInput,
   jobInput,
   userProfileName,
-  userProfileProfession
+  userProfileProfession,
+  userAvatar,
+  popupEditAvatar,
+  avatarForm,
+  avatarInput,
+  avatarPhoto,
+  buttonCloseAvatarForm,
+  buttonSubmitProfile,
+  buttonSubmitAvatar
 } from './components/modal.js';
 
-getUserInfo()
-.then((data) => {
-  userProfileName.textContent = data.name;
-  userProfileProfession.textContent = data.about;
+let userId; //id пользователя
+
+getUserCardsInfo()
+.then(([userData, cardsData]) => {
+  userId = userData._id;
+  userProfileName.textContent = userData.name;
+  userProfileProfession.textContent = userData.about;
+  avatarPhoto.src = userData.avatar;
+  cardsData.reverse().forEach(function(el) {
+    let item;
+    el.likes.forEach(function(like) {
+      if (like._id === userId) {
+        return item = true;
+      }
+      return item;
+    })
+    addCard(el.name, el.link, el._id, el.likes.length, el.owner._id, userId, item);
+  });
 })
 .catch((err) => {
   console.log(err);
 })
-
-getCardsInfo()
-.then((data) => {
-  data.reverse().forEach(function(item) {
-    addCard(item.name, item.link, item._id);
-  })
-})
-.catch((err) => {
-  console.log(err);
-})
-
 
 //Обработчик отправки формы для создания новой карточки
 function handleCardFormSubmit (evt) {
   evt.preventDefault();
-   // Отключение события по умолчанию
-  addServCard(cardNameInput.value, cardAboutInput.value)
+  buttonSubmitCard.textContent = 'Сохранение...';
+   addUserCard(cardNameInput.value, cardAboutInput.value)
   .then((data) => {
-    addCard(data.name, data.link);
+    addCard(data.name, data.link, data._id, data.likes.length, data.owner._id, userId);
+    closePopup(popupAddCard);
   })
   .catch((err) => {
     console.log(err);
   })
-  closePopup(popupAddCard);
+  .finally(() => {
+    buttonSubmitCard.textContent = 'Создать';
+  });
 };
 popupFormAddCard.addEventListener('submit', handleCardFormSubmit);
 
@@ -87,16 +102,17 @@ buttonClosePopupEditForm.addEventListener('click', () => {
 //Обработчик отправки формы профиля пользователя
 popupProfileForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
+  buttonSubmitProfile.textContent = 'Сохранение...';
   userProfileName.textContent = nameInput.value;
   userProfileProfession.textContent = jobInput.value;
+  setUserInfo(nameInput.value, jobInput.value);
+  buttonSubmitProfile.textContent = 'Сохранить';
   closePopup(popupEditProfile);
-  setUserInfo(nameInput.value, jobInput.value)
 });
-
 
 // Открытие попапа для добавления карточек
 buttonAddCard.addEventListener('click', () => {
-  //reset(); // Очистка полей формы
+  popupFormAddCard.reset(); // Очистка полей формы
   removeAllErrors();
   disableSubmitButton();
   openPopup(popupAddCard);
@@ -107,7 +123,6 @@ buttonClosePopupAddCard.addEventListener('click', () => {
   popupFormAddCard.reset();
   closePopup(popupAddCard);
 });
-
 
 // Закрытие попапа с фото
 buttonClosePopupImage.addEventListener('click', () => {
@@ -123,37 +138,56 @@ popupList.forEach(popupElement => {
   });
 });
 
+//Открытие попапа изменения аватара
+userAvatar.addEventListener('click', () => {
+  avatarForm.reset(); // Очистка полей формы
+  removeAllErrors();
+  disableSubmitButton();
+  openPopup(popupEditAvatar);
+});
+
+//Слушатель отправки формы для изменения аватара пользователя
+avatarForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  buttonSubmitAvatar.textContent = "Сохранение...";
+  setUserAvatar(avatarInput.value);
+  avatarPhoto.src = avatarInput.value;
+  console.log(buttonSubmitAvatar.textContent);
+  closePopup(popupEditAvatar);
+});
+
+//Закрытие попапа для редактирования аватара
+buttonCloseAvatarForm.addEventListener('click', () => {
+  closePopup(popupEditAvatar);
+});
+
 enableValidation(config);
 
 
+/*getUserInfo()
+.then((data) => {
+  userId = data._id;
+  userProfileName.textContent = data.name;
+  userProfileProfession.textContent = data.about;
+})
+.catch((err) => {
+  console.log(err);
+})
 
+getCardsInfo()
+.then((data) => {
+  console.log(data);
+  data.reverse().forEach(function(item) {
+   /* item.likes.forEach(function(like) {
+      let isLiked;
+      if (like._id === userId) {
+        isLiked);
+      }
+    })
 
-
-
-/*
-
-//запрос на отображение количества лайков
-function addLike(cardId) {
-  return fetch(`${apiConfig.baseUrl}/cards/likes/${cardId}`, {
-    method: 'PUT',
-    headers: apiConfig.headers
+    addCard(item.name, item.link, item._id, item.likes.length, item.owner._id, userId);
   })
-  .then(parseResponse)
-  .then((result) => {
-    console.log(result);
-  });
-}
-
-//запросна удаление карточек
-
-function deleteLike(cardId) {
-  return fetch(`${apiConfig.baseUrl}/cards/likes/${cardId}`, {
-    method: 'DELETE',
-    headers: apiConfig.headers
-  })
-  .then(parseResponse)
-  .then((result) => {
-    console.log(result);
-  });
-}
-*/
+})
+.catch((err) => {
+  console.log(err);
+})*/
