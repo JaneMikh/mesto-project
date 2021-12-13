@@ -20,8 +20,6 @@ import {
   buttonSubmitCard,
   popupImageContainer,
   buttonClosePopupImage,
-} from '../components/constants.js';
-import {
   popupList,
   popupEditProfile,
   buttonEditForm,

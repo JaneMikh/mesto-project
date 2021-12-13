@@ -65,9 +65,6 @@ export {
   popupImageItem,
   popuImageName,
   buttonClosePopupImage,
-};
-
-export {
   popupList,
   popupEditProfile,
   buttonEditForm,
