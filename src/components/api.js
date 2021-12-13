@@ -1,14 +1,3 @@
-export {
-  getUserInfo,
-  setUserInfo,
-  getCardsInfo,
-  addUserCard,
-  deleteUserCard,
-  setUserLike,
-  deleteUserLike,
-  getUserCardsInfo,
-  setUserAvatar
-}
 
 const apiConfig = {
   baseUrl: 'https://mesto.nomoreparties.co/v1/plus-cohort-4', //идентификатор группы plus-cohort-4
@@ -118,4 +107,16 @@ const deleteUserLike = (cardId) => {
     headers: apiConfig.headers,
   })
   .then(parseResponse)
+}
+
+export {
+  getUserInfo,
+  setUserInfo,
+  getCardsInfo,
+  addUserCard,
+  deleteUserCard,
+  setUserLike,
+  deleteUserLike,
+  getUserCardsInfo,
+  setUserAvatar
 }
