@@ -1,29 +1,26 @@
-//Импорт файла css для сборки (webpack)
-import './pages/index.css';
-
+import './index.css';
+import {renderLoading} from '../components/utils.js'
 import {
   setUserInfo,
-  getCardsInfo,
   addUserCard,
   getUserCardsInfo,
   setUserAvatar
-} from './components/api.js';
-
-import {enableValidation, removeAllErrors, enableSubmitButton, disableSubmitButton} from './components/validate.js';
-import {config} from './components/constants.js';
-import {openPopup, closePopup} from './components/utils.js';
-import {buttonAddCard,
+} from '../components/api.js';
+import {enableValidation, removeAllErrors, enableSubmitButton, disableSubmitButton} from '../components/validate.js';
+import {config} from '../components/constants.js';
+import {openPopup, closePopup} from '../components/modal.js';
+import {addCard} from '../components/card.js';
+import {
+  popupAddCard,
+  buttonAddCard,
+  popupFormAddCard,
   cardNameInput,
   cardAboutInput,
   buttonClosePopupAddCard,
-  buttonClosePopupImage,
-  popupFormAddCard,
-  popupAddCard,
-  popupImageContainer,
   buttonSubmitCard,
-  addCard
-} from './components/card.js';
-
+  popupImageContainer,
+  buttonClosePopupImage,
+} from '../components/constants.js';
 import {
   popupList,
   popupEditProfile,
@@ -42,7 +39,7 @@ import {
   buttonCloseAvatarForm,
   buttonSubmitProfile,
   buttonSubmitAvatar
-} from './components/modal.js';
+} from '../components/constants.js';
 
 let userId; //id пользователя
 
@@ -70,8 +67,8 @@ getUserCardsInfo()
 //Обработчик отправки формы для создания новой карточки
 function handleCardFormSubmit (evt) {
   evt.preventDefault();
-  buttonSubmitCard.textContent = 'Сохранение...';
-   addUserCard(cardNameInput.value, cardAboutInput.value)
+  renderLoading(buttonSubmitCard, true);
+  addUserCard(cardNameInput.value, cardAboutInput.value)
   .then((data) => {
     addCard(data.name, data.link, data._id, data.likes.length, data.owner._id, userId);
     closePopup(popupAddCard);
@@ -80,7 +77,7 @@ function handleCardFormSubmit (evt) {
     console.log(err);
   })
   .finally(() => {
-    buttonSubmitCard.textContent = 'Создать';
+    renderLoading(buttonSubmitCard, false);
   });
 };
 popupFormAddCard.addEventListener('submit', handleCardFormSubmit);
@@ -102,11 +99,11 @@ buttonClosePopupEditForm.addEventListener('click', () => {
 //Обработчик отправки формы профиля пользователя
 popupProfileForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
-  buttonSubmitProfile.textContent = 'Сохранение...';
+  renderLoading(buttonSubmitProfile, true);
   userProfileName.textContent = nameInput.value;
   userProfileProfession.textContent = jobInput.value;
   setUserInfo(nameInput.value, jobInput.value);
-  buttonSubmitProfile.textContent = 'Сохранить';
+  renderLoading(buttonSubmitProfile, false);
   closePopup(popupEditProfile);
 });
 
@@ -149,10 +146,10 @@ userAvatar.addEventListener('click', () => {
 //Слушатель отправки формы для изменения аватара пользователя
 avatarForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
-  buttonSubmitAvatar.textContent = "Сохранение...";
+  renderLoading(buttonSubmitAvatar, true);
   setUserAvatar(avatarInput.value);
   avatarPhoto.src = avatarInput.value;
-  console.log(buttonSubmitAvatar.textContent);
+  renderLoading(buttonSubmitAvatar, false);
   closePopup(popupEditAvatar);
 });
 
@@ -162,32 +159,3 @@ buttonCloseAvatarForm.addEventListener('click', () => {
 });
 
 enableValidation(config);
-
-
-/*getUserInfo()
-.then((data) => {
-  userId = data._id;
-  userProfileName.textContent = data.name;
-  userProfileProfession.textContent = data.about;
-})
-.catch((err) => {
-  console.log(err);
-})
-
-getCardsInfo()
-.then((data) => {
-  console.log(data);
-  data.reverse().forEach(function(item) {
-   /* item.likes.forEach(function(like) {
-      let isLiked;
-      if (like._id === userId) {
-        isLiked);
-      }
-    })
-
-    addCard(item.name, item.link, item._id, item.likes.length, item.owner._id, userId);
-  })
-})
-.catch((err) => {
-  console.log(err);
-})*/
