@@ -1,4 +1,3 @@
-
 const apiConfig = {
   baseUrl: 'https://mesto.nomoreparties.co/v1/plus-cohort-4', //идентификатор группы plus-cohort-4
   headers: {
@@ -86,9 +85,6 @@ const deleteUserCard = (cardId) => {
     })
   })
   .then(parseResponse)
-  .catch((err) => {
-    console.log(err);
-  })
 }
 
 //Запрос на добавление лайка
@@ -119,4 +115,4 @@ export {
   deleteUserLike,
   getUserCardsInfo,
   setUserAvatar
-}
+};

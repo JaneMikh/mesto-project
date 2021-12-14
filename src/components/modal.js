@@ -1,3 +1,5 @@
+import {popupList} from './constants.js';
+
 // Функция для открытия попапов
 function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -17,6 +19,28 @@ function handleEscClose(evt) {
     const popupisOpened = document.querySelector('.popup_opened');
     closePopup(popupisOpened);
   }
-};
+}
 
-export {openPopup, closePopup};
+//Закрытие попапа нажатием на оверлей
+function closePopupByOvelay() {
+  popupList.forEach(popupElement => {
+    popupElement.addEventListener('mousedown', (evt) => {
+      if (evt.target.classList.contains('popup_opened')) {
+        closePopup(popupElement);
+      }
+    });
+  });
+}
+
+//Закрытие всех попапов нажатем на {X}
+function closePopupByCloseButton() {
+  popupList.forEach((popup) => {
+    popup.addEventListener('click', (evt) => {
+      if (evt.target.classList.contains('popup__button-close')) {
+        closePopup(popup);
+      }
+    });
+  });
+}
+
+export {openPopup, closePopup, closePopupByOvelay, closePopupByCloseButton};
