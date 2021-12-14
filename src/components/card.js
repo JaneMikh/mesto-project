@@ -32,7 +32,7 @@ function createCard(name, link, cardId, likes, ownerId, userId, likesCheck) {
   buttonLikeCard.classList.add('card__button-like_active');
  }
 
-//Слушатель для удадения карточек по клику на корзину
+//Слушатель для удаления карточек по клику на корзину
   buttonDeleteCard.addEventListener('click', () => {
     handleDeleteIcon(cardElement);
   });
@@ -41,26 +41,24 @@ function createCard(name, link, cardId, likes, ownerId, userId, likesCheck) {
   buttonLikeCard.addEventListener('click', () => {
     if (buttonLikeCard.classList.contains('card__button-like_active')) {
       deleteUserLike(cardId)
-        .then ((data) => {
-          buttonLikeCard.classList.remove('card__button-like_active');
-          likesCounter.textContent = data.likes.length;
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-
+      .then ((data) => {
+        buttonLikeCard.classList.remove('card__button-like_active');
+        likesCounter.textContent = data.likes.length;
+      })
+      .catch((err) => {
+        console.log(err);
+      })
     } else {
       setUserLike(cardId)
-        .then ((data) => {
-          buttonLikeCard.classList.add('card__button-like_active');
-          likesCounter.textContent = data.likes.length;
-        })
-        .catch((err) => {
-          console.log(err);
-        })
+      .then ((data) => {
+        buttonLikeCard.classList.add('card__button-like_active');
+        likesCounter.textContent = data.likes.length;
+      })
+      .catch((err) => {
+        console.log(err);
+      })
     }
   });
-
   cardImage.addEventListener('click', () => handlePreviewPicture(name, link));
 
   return cardElement;
@@ -73,9 +71,13 @@ function addCard(userText, userLink, cardId, likes, ownerId, userId, likesCheck)
 
 //Удаление карточки
 function handleDeleteIcon(itemElement) {
-  //запрос на удаление карточки
   deleteUserCard(itemElement.id)
-  itemElement.remove();
+  .then(() => {
+    itemElement.remove();
+  })
+  .catch((err) => {
+    console.log(err);
+  })
 }
 
 //Открытие попапа с фото
