@@ -102,7 +102,31 @@ const profilePopup = new PopupWithForm({
 });
 profilePopup.setEventListeners();
 
-
+//---(Попап для редактирования аватара профиля)---
+const avatarPopup = new PopupWithForm({
+  popupSelector: '.popup_type_avatar',
+  handleFormSubmit: (data) => {
+    const item = {
+      avatar: data.avatarInput,
+    }
+    avatarPopup.renderLoading(true);
+    api.setUserAvatar(item)
+      .then((data) => {
+        profileInfoEdit.setUserInfo({
+          avatar: data.avatar,
+        })
+        /*avatarPhoto.src = data.avatar;*/
+        avatarPopup.closePopup();
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        avatarPopup.renderLoading(false);
+      });
+  },
+});
+avatarPopup.setEventListeners();
 
 
 

@@ -1,3 +1,14 @@
+//---(Попап с изображением)---
+const popupImageContainer = document.querySelector('.popup_type_image');
+const popupImageItem = popupImageContainer.querySelector('.popup__image');
+const popuImageName = popupImageContainer.querySelector('.popup__image-name');
+
+export const viewImageConfig = {
+  popupSelector: '.popup_type_image',
+  imageItem: popupImageItem,
+  imageName: popuImageName,
+}
+
 export const formSelectors = {
   formSelector: '.form',
   inputSelector: '.form__input',

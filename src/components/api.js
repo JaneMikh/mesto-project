@@ -24,12 +24,12 @@ export default class Api {
 
   //Отправить запрос на изменение аватара на сервер
   //Работает console.log(api.setUserAvatar('https://krasivosti.pro/uploads/posts/2021-04/1617819813_10-p-koshka-oboi-malenkaya-koshechka-12.jpg'));
-  setUserAvatar(userAvatar) {
+  setUserAvatar({avatar}) {
     return fetch(`${this._url}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        userAvatar,
+        avatar,
       })
     })
     .then(this._parseResponse)
