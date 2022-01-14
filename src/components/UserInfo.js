@@ -4,7 +4,7 @@ export default class UserInfo {
     this._userAbout = document.querySelector(userProfileConfig.professionSelector);
     this._avatar = document.querySelector(userProfileConfig.avatarSelector);
   }
-  //Получить данные ссервера
+  //Получить данные с сервера
   getUserInfo(data) {
     this._userName.textContent = data.name;
     this._userAbout.textContent = data.about;
@@ -16,7 +16,7 @@ export default class UserInfo {
       avatar: this._avatar.src,
     }
   }
-  //принимает данные, отправляет на сервер и добавляет на страницу
+  //Принимает данные, отправляет на сервер и добавляет на страницу
   setUserInfo({avatar, name, profession}) {
     this._avatar.src = avatar;
     this._userName.textContent = name;
