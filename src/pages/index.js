@@ -6,10 +6,12 @@ import Api from '../components/Api.js';
 // import {enableValidation, removeAllErrors, enableSubmitButton, disableSubmitButton} from '../components/validate.js';
 import { formSelectors } from '../components/constants.js';
 // import {config} from '../components/constants.js';
-import {openPopup, closePopup, closePopupByOvelay, closePopupByCloseButton} from '../components/modal.js';
+//import {openPopup, closePopup, closePopupByOvelay, closePopupByCloseButton} from '../components/modal.js';
 //import {addCard} from '../components/card.js';
 import Card from '../components/card.js';
 import Section from '../components/Section.js';
+import Popup from '../components/Popup.js';
+
 
 import {
   popupAddCard,
