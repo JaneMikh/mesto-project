@@ -8,7 +8,7 @@ import { formSelectors } from '../components/constants.js';
 // import {config} from '../components/constants.js';
 //import {openPopup, closePopup, closePopupByOvelay, closePopupByCloseButton} from '../components/modal.js';
 //import {addCard} from '../components/card.js';
-import Card from '../components/card.js';
+import Card from '../components/Card.js';
 import Section from '../components/Section.js';
 import Popup from '../components/Popup.js';
 import PopupWithForm from '../components/PopupWithForm.js';
@@ -62,10 +62,6 @@ const api = new Api({
 });
 
 
-
-
-
-
 //---(Запускаем валидацию форм)---
 const cardValidatorForm = new FormValidator(formSelectors, popupFormAddCard);
 const avatarValidatorForm = new FormValidator(formSelectors, avatarForm);
@@ -73,6 +69,56 @@ const profileValidatorForm = new FormValidator(formSelectors, popupProfileForm);
 cardValidatorForm.enableValidation();
 avatarValidatorForm.enableValidation();
 profileValidatorForm.enableValidation();
+
+
+const profileInfoEdit = new UserInfo(userProfileConfig);
+
+//---(Попап для редактирования профиля)---
+const profilePopup = new PopupWithForm({
+  popupSelector: '.popup_type_edit-profile',
+  handleFormSubmit: (data) => {
+    const item = {
+      name: data.nameProfile,
+      about: data.aboutYourself,
+    }
+    profilePopup.renderLoading(true);
+    api.setUserInfo(item)
+      .then((data) => {
+        profileInfoEdit.setUserInfo({
+          name: data.name,
+          profession: data.about,
+        });
+        /*userProfileName.textContent = data.name;
+        userProfileProfession.textContent = data.about;*/
+        profilePopup.closePopup();
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        profilePopup.renderLoading(false);
+      });
+  },
+});
+profilePopup.setEventListeners();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //Создать карточку
 const setCard = (data) => {
@@ -111,8 +157,7 @@ api.getUserCardsInfo()
   console.log(err);
 })
 
-closePopupByOvelay();
-closePopupByCloseButton();
+
 
 //Обработчик отправки формы для создания новой карточки
 function handleCardFormSubmit (evt) {

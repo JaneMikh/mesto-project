@@ -37,13 +37,13 @@ export default class Api {
 
   //Отправить запрос на изменение имени и описания на сервер
   //Работает console.log(api.setUserInfo('Eva', 'Teacher'));
-  setUserInfo(userName, userAbout) {
+  setUserInfo({name, about}) {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        name: userName,
-        about: userAbout
+        name,
+        about,
       })
     })
     .then(this._parseResponse)
