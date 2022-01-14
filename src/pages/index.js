@@ -13,6 +13,9 @@ import Section from '../components/Section.js';
 import Popup from '../components/Popup.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
+import UserInfo from '../components/PopupWithImage.js';
+import { userProfileConfig } from '../components/constants.js';
+
 
 
 import {
@@ -57,6 +60,11 @@ const api = new Api({
     'Content-Type': 'application/json'
   }
 });
+
+
+
+
+
 
 //---(Запускаем валидацию форм)---
 const cardValidatorForm = new FormValidator(formSelectors, popupFormAddCard);

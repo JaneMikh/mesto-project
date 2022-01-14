@@ -1,10 +1,17 @@
-const formSelectors = {
+export const formSelectors = {
   formSelector: '.form',
   inputSelector: '.form__input',
   buttonSelector: '.form__button-submit',
   inputErrorClass: 'form__input_type_error',
   inactiveButtonClass: 'form__button-submit_inactive',
 };
+
+export const userProfileConfig = {
+  nameSelector: '.user-profile__name',
+  professionSelector: '.user-profile__profession',
+  avatarSelector: '.user-profile__photo',
+}
+
 
 const popupList = document.querySelectorAll('.popup');
 //Попар для редактрования профиля
