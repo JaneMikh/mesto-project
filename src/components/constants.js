@@ -1,4 +1,4 @@
-const config = {
+const formSelectors = {
   formSelector: '.form',
   inputSelector: '.form__input',
   buttonSelector: '.form__button-submit',
@@ -41,7 +41,7 @@ const popupImageContainer = document.querySelector('.popup_type_image');
 const popupImageItem = popupImageContainer.querySelector('.popup__image');
 const popuImageName = popupImageContainer.querySelector('.popup__image-name');
 
-export {config};
+export {formSelectors};
 export {
   popupAddCard,
   buttonAddCard,
