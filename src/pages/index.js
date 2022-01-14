@@ -11,6 +11,8 @@ import { formSelectors } from '../components/constants.js';
 import Card from '../components/card.js';
 import Section from '../components/Section.js';
 import Popup from '../components/Popup.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithImage from '../components/PopupWithImage.js';
 
 
 import {
@@ -38,11 +40,20 @@ import {
 
 let userId; //id пользователя
 
-//---(Олин конфиг)---
+// //---(Олин конфиг)---
+// const api = new Api({
+//   baseUrl: 'https://mesto.nomoreparties.co/v1/plus-cohort-4', //идентификатор группы plus-cohort-4
+//   headers: {
+//     Authorization: '001ad720-6ef4-4b0d-b9d3-4ac6fa30aca0', //токен
+//     'Content-Type': 'application/json'
+//   }
+// });
+
+//---(Женин конфиг)---
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/plus-cohort-4', //идентификатор группы plus-cohort-4
   headers: {
-    Authorization: '001ad720-6ef4-4b0d-b9d3-4ac6fa30aca0', //токен
+    Authorization: '53f5a902-2507-4ae9-b8bd-13e370d56b23', //токен
     'Content-Type': 'application/json'
   }
 });
@@ -114,17 +125,10 @@ function handleCardFormSubmit (evt) {
 popupFormAddCard.addEventListener('submit', handleCardFormSubmit);
 
 
-// //---(Женин конфиг)---
-// const api = new Api({
-//   baseUrl: 'https://mesto.nomoreparties.co/v1/plus-cohort-4', //идентификатор группы plus-cohort-4
-//   headers: {
-//     Authorization: '53f5a902-2507-4ae9-b8bd-13e370d56b23', //токен
-//     'Content-Type': 'application/json'
-//   }
-// });
 
-closePopupByOvelay();
-closePopupByCloseButton();
+
+// closePopupByOvelay();
+// closePopupByCloseButton();
 
 // getUserCardsInfo()
 // .then(([userData, cardsData]) => {
