@@ -1,6 +1,6 @@
 import './index.css';
 
-import { formSelectors, viewImageConfig, userProfileConfig } from '../components/constants.js';
+import { formSelectors, viewImageConfig, userProfileConfig } from '../utils/constants.js';
 import Api from '../components/Api.js';
 import FormValidator from '../components/FormValidator.js';
 import Card from '../components/Card.js';
@@ -21,7 +21,7 @@ import {
   userProfileProfession,
   buttonUserAvatar,
   avatarForm,
-} from '../components/constants.js';
+} from '../utils/constants.js';
 
 
 // //---(Олин конфиг)---
@@ -143,7 +143,7 @@ popupWithImage.setEventListeners();
 
 const setCard = (data) => {
   const card = new Card({
-    cardData:{...data, userId} ,
+    cardData: {...data, userId},
     cardSelector: '.card-element',
     addLikeClick: (data) => {
       return api.setUserLike(data);
@@ -165,7 +165,7 @@ const setCard = (data) => {
     },
   });
     return card.createCard(data);
-  };
+};
 
 //Сгенерировать новую карточку (добавить в разметку)
 const cardList = new Section(
@@ -179,14 +179,14 @@ const cardList = new Section(
 
 //Загрузить всю информацию по карточкам и данным пользователя
 api.getUserCardsInfo()
-.then(([userData, cardsData]) => {
-userId = userData._id; //id пользователя
-profileInfoEdit.getUserInfo(userData);
-  cardsData.reverse();
-  cardList.renderItems(cardsData);
-})
-.catch((err) => {
-  console.log(err);
+  .then(([userData, cardsData]) => {
+    userId = userData._id; //id пользователя
+    profileInfoEdit.getUserInfo(userData);
+    cardsData.reverse();
+    cardList.renderItems(cardsData);
+  })
+  .catch((err) => {
+    console.log(err);
 })
 
 //-------------------------

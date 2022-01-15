@@ -1,4 +1,3 @@
-//РЕФАКТОРИНГ
 export default class Card {
   constructor({cardData, cardSelector, addLikeClick, removeLikeClick, handleCardClick, handleDeleteIcon}) {
     this._data = cardData;
@@ -13,7 +12,7 @@ export default class Card {
     this._removeLikeClick = removeLikeClick;
     this._handleCardClick = handleCardClick;
     this._handleDeleteIcon = handleDeleteIcon;
-  }
+   }
 
   //Получить карточку из разметки
   _getCardElement() {
@@ -28,14 +27,14 @@ export default class Card {
 
   //Сгенерировать разметку формы и поместить туда информацию, которая придет извне
   createCard() {
-
     this._element = this._getCardElement();
-    this._setEventListeners();
-    this._renderLikes();
-
+    this._likesCounter = this._element.querySelector('.card__like-counter');
+    this._buttonLikeCard = this._element.querySelector('.card__button-like');
     this._buttonDeleteCard = this._element.querySelector('.card__button-delete');
     this._cardImage = this._element.querySelector('.card__image');
     this._cardName = this._element.querySelector('.card__name');
+    this._setEventListeners();
+    this._renderLikes();
 
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
@@ -52,10 +51,7 @@ export default class Card {
 
   //Получить информацию о лайках
   _renderLikes() {
-    this._likesCounter = this._element.querySelector('.card__like-counter');
     this._likesCounter.textContent = this._likes.length;
-    this._buttonLikeCard = this._element.querySelector('.card__button-like');
-
     // Условие будет true если в массиве лайков найдется лайк с id пользователя
     this._data.likes.forEach((item) => {
       if (item._id === this._userId) {
@@ -78,17 +74,10 @@ export default class Card {
 
   //Добавить слушатели
   _setEventListeners() {
-    this._buttonLikeCard = this._element.querySelector('.card__button-like');
-    this._buttonDeleteCard = this._element.querySelector('.card__button-delete');
-    this._cardImage = this._element.querySelector('.card__image');
-
-
     //Слушатель для изменения состояния лайка
     this._buttonLikeCard.addEventListener('click', () => this._toggleLikes());
-
     //Слушатель для удаления карточек по клику на корзину
     this._buttonDeleteCard.addEventListener('click', () => this._handleDeleteIcon());
-
     //Cлушатель для открытия попапа с фото
     this._cardImage.addEventListener('click', () => this._handleCardClick({
       name: this._name,
@@ -99,9 +88,6 @@ export default class Card {
 
   //Функция для добавления/удаления лайков
   _toggleLikes() {
-    this._buttonLikeCard = this._element.querySelector('.card__button-like');
-    this._likesCounter = this._element.querySelector('.card__like-counter');
-
     if (this._buttonLikeCard.classList.contains('card__button-like_active')) {
       this._removeLikeClick(this._cardId)
       .then ((res) => {
