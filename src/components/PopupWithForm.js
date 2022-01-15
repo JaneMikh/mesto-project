@@ -1,5 +1,5 @@
 import Popup from './Popup.js';
-import { formSelectors } from './constants.js';
+import { formSelectors } from '../utils/constants.js';
 
 export default class PopupWithForm extends Popup {
   constructor({ popupSelector, handleFormSubmit }) {
@@ -18,11 +18,11 @@ export default class PopupWithForm extends Popup {
     return this._inputValues; //объект с данными
   }
 
-  renderLoading(loadingStatus) {
+  renderLoading(loadingStatus, buttonText='Сохранить') {
     if (loadingStatus) {
       this._buttonSubmit.textContent = "Сохранение...";
     } else {
-      this._buttonSubmit.textContent = 'Сохранить';
+      this._buttonSubmit.textContent = buttonText;
     }
   }
 

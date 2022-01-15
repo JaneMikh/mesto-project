@@ -12,7 +12,7 @@ export default class Api {
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  //Получить информацию о пользователе c сервера
+  //Получить информацию о пользователе
   getUserInfo() {
     return fetch(`${this._url}/users/me`, {
       method: 'GET',
