@@ -15,5 +15,9 @@
 
 [Ссылка на проект](https://janemikh.github.io/mesto-project)
  
+ ## Информация о напарнике
  
+ Почта: lelik6451@gmail.com;
+ 
+ Сссылка на GitHub: https://github.com/Grbchk
 
