@@ -25,7 +25,7 @@ export default class Card {
     return cardElement;
   }
 
-  //Сгенерировать разметку формы и поместить туда информацию, которая придет извне
+  //Сгенерировать разметку формы и поместить туда информацию
   createCard() {
     this._element = this._getCardElement();
     this._likesCounter = this._element.querySelector('.card__like-counter');
