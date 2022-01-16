@@ -67,7 +67,7 @@ const profilePopup = new PopupWithForm({
       .then((data) => {
         profileInfoEdit.setUserInfo({
           name: data.name,
-          profession: data.about,
+          about: data.about,
           avatar: data.avatar,
         });
         profilePopup.closePopup();
@@ -94,7 +94,7 @@ const avatarPopup = new PopupWithForm({
       .then((data) => {
         profileInfoEdit.setUserInfo({
           name: data.name,
-          profession: data.about,
+          about: data.about,
           avatar: data.avatar,
         })
         avatarPopup.closePopup();
@@ -181,7 +181,7 @@ const cardList = new Section(
 api.getUserCardsInfo()
   .then(([userData, cardsData]) => {
     userId = userData._id; //id пользователя
-    profileInfoEdit.getUserInfo(userData);
+    profileInfoEdit.setUserInfo(userData);
     cardsData.reverse();
     cardList.renderItems(cardsData);
   })
@@ -196,8 +196,9 @@ api.getUserCardsInfo()
 //---(Слушатель кнопки открытия попапа для редактирования профиля пользователя)---
 buttonEditForm.addEventListener('click', () => {
   profileValidatorForm.removeAllErrors();
-  nameInput.value = userProfileName.textContent;
-  jobInput.value = userProfileProfession.textContent;
+  const profileData = profileInfoEdit.getUserInfo();
+  nameInput.value = profileData.name;
+  jobInput.value = profileData.about;
   profileValidatorForm.enableSubmitButton();
   profilePopup.openPopup();
 });

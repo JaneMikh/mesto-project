@@ -4,22 +4,21 @@ export default class UserInfo {
     this._userAbout = document.querySelector(userProfileConfig.professionSelector);
     this._avatar = document.querySelector(userProfileConfig.avatarSelector);
   }
-  //Получить данные с сервера
-  getUserInfo(data) {
-    this._userName.textContent = data.name;
-    this._userAbout.textContent = data.about;
-    this._avatar.src = data.avatar;
 
-    return {
+  //Получить данные
+  getUserInfo() {
+    this._userInfo = {
       name: this._userName.textContent,
       about: this._userAbout.textContent,
       avatar: this._avatar.src,
     }
+    return this._userInfo;
   }
-  //Принимает данные, отправляет на сервер и добавляет на страницу
-  setUserInfo({avatar, name, profession}) {
+
+  //Принимает данные и добавляет на страницу
+  setUserInfo({avatar, name, about}) {
     this._avatar.src = avatar;
     this._userName.textContent = name;
-    this._userAbout.textContent = profession;
+    this._userAbout.textContent = about;
   }
 }
